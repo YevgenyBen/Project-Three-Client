@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "typeface-roboto";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
@@ -36,6 +36,25 @@ const useStyles = makeStyles({
 });
 
 function Login() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleChange = event => {
+    switch (event.target.name) {
+      case "First Name": {
+        setFirstName(event.target.value);
+      }
+      case "Last Name": {
+        setLastName(event.target.value);
+      }
+      case "User Name": {
+        setUserName(event.target.value);
+      }
+    }
+  };
+
   const classes = useStyles();
   return (
     <Container className={classes.root}>
@@ -54,13 +73,36 @@ function Login() {
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <TextField
+                      onChange={handleChange}
                       variant="outlined"
                       required
                       fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      autoComplete="email"
+                      id="First Name"
+                      label="First Name"
+                      name="First Name"
+                      autoComplete="First Name"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="Last Name"
+                      label="Last Name"
+                      name="Last Name"
+                      autoComplete="Last Name"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="User Name"
+                      label="User Name"
+                      name="User Name"
+                      autoComplete="User Name"
                     />
                   </Grid>
                   <Grid item xs={12}>

@@ -57,10 +57,10 @@ function Login() {
                       variant="outlined"
                       required
                       fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      autoComplete="email"
+                      id="User Name"
+                      label="User Name"
+                      name="User Name"
+                      autoComplete="User Name"
                     />
                   </Grid>
                   <Grid item xs={12}>
