@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import axios from "axios";
 
 const useStyles = makeStyles({
   root: {
@@ -52,7 +53,24 @@ function Login() {
       case "User Name": {
         setUserName(event.target.value);
       }
+      case "password": {
+        setPassword(event.target.value);
+      }
     }
+  };
+
+  const sendRegistration = () => {
+    let oUser = {
+      first_name: firstName,
+      last_name: lastName,
+      user_name: userName,
+      password: password
+    };
+    console.log(oUser);
+    axios.post(`http://localhost:4001/login/signup`, { oUser }).then(res => {
+      console.log(res);
+      console.log(res.data);
+    });
   };
 
   const classes = useStyles();
@@ -132,7 +150,7 @@ function Login() {
                 </Grid>
                 <Box mt={2}>
                   <Button
-                    type="submit"
+                    onClick={sendRegistration}
                     fullWidth
                     variant="contained"
                     color="primary"
