@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "typeface-roboto";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
@@ -12,6 +12,8 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import axios from "axios";
+import CostumTextField from "./CostumTextField";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   root: {
@@ -36,41 +38,52 @@ const useStyles = makeStyles({
   }
 });
 
-function Login() {
+function Signup() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleChange = event => {
-    switch (event.target.name) {
-      case "First Name": {
-        setFirstName(event.target.value);
-      }
-      case "Last Name": {
-        setLastName(event.target.value);
-      }
-      case "User Name": {
-        setUserName(event.target.value);
-      }
-      case "password": {
-        setPassword(event.target.value);
-      }
-    }
+  const [oUser, setoUser] = useState({});
+  var oUserT = {
+    first_name: "",
+    last_name: "",
+    user_name: "",
+    password: ""
   };
 
+  oUserT.first_name = useSelector(state => state.userReducer.firstName);
+  oUserT.last_name = useSelector(state => state.userReducer.lastName);
+  oUserT.user_name = useSelector(state => state.userReducer.userName);
+  oUserT.password = useSelector(state => state.userReducer.password);
+  console.log(oUserT);
+  //   useEffect(() => {
+  //     setoUser(oUserT);
+  //   }, [oUserT]);
+
+  //   setoUser(oUserT);
+
+  //   setFirstName(oUser.first_name);
+  //   setLastName(oUser.last_name);
+  //   setUserName(oUser.user_name);
+  //   setPassword(oUser.password);
+
   const sendRegistration = () => {
-    let oUser = {
-      first_name: firstName,
-      last_name: lastName,
-      user_name: userName,
-      password: password
-    };
+    // let oUser = {
+    //   first_name: firstName,
+    //   last_name: lastName,
+    //   user_name: userName,
+    //   password: password
+    // };
     console.log(oUser);
-    axios.post(`http://localhost:4001/login/signup`, { oUser }).then(res => {
-      console.log(res);
-      console.log(res.data);
-    });
+    axios
+      .post(`http://localhost:4001/login/signup`, { oUser })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
 
   const classes = useStyles();
@@ -90,62 +103,19 @@ function Login() {
               <form className={classes.form} noValidate>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
-                    <TextField
-                      onChange={handleChange}
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="First Name"
-                      label="First Name"
-                      name="First Name"
-                      autoComplete="First Name"
-                    />
+                    <CostumTextField error={true} id={"FirstName"} />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="Last Name"
-                      label="Last Name"
-                      name="Last Name"
-                      autoComplete="Last Name"
-                    />
+                    <CostumTextField id={"LastName"} />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="User Name"
-                      label="User Name"
-                      name="User Name"
-                      autoComplete="User Name"
-                    />
+                    <CostumTextField id={"UserName"} />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                    />
+                    <CostumTextField id={"Password"} />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password Verification"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                    />
+                    <CostumTextField id={"Password Verification"} />
                   </Grid>
                 </Grid>
                 <Box mt={2}>
@@ -176,4 +146,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
