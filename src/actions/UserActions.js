@@ -23,9 +23,15 @@ export const UserActions = {
       payload: val
     };
   },
-  PASSWORDFIELD: val => {
+  Password: val => {
     return {
-      type: "PASSWORDFIELD",
+      type: "Password",
+      payload: val
+    };
+  },
+  PasswordVerification: val => {
+    return {
+      type: "PasswordVerification",
       payload: val
     };
   }

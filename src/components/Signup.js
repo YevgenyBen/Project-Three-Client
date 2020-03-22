@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect,useState} from "react";
 import "typeface-roboto";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+// import TextField from "@material-ui/core/TextField";
 import DirectionsBoatIcon from "@material-ui/icons/DirectionsBoat";
 import Avatar from "@material-ui/core/Avatar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,6 +14,7 @@ import Container from "@material-ui/core/Container";
 import axios from "axios";
 import CostumTextField from "./CostumTextField";
 import { useSelector } from "react-redux";
+import CostumModal from "./CostumModal"
 
 const useStyles = makeStyles({
   root: {
@@ -39,56 +40,63 @@ const useStyles = makeStyles({
 });
 
 function Signup() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  // const [userName, setUserName] = useState("");
+  // const [password, setPassword] = useState("");
   const [oUser, setoUser] = useState({});
+  const [userNameTaken, setUserNameTaken] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
+
   var oUserT = {
     first_name: "",
     last_name: "",
     user_name: "",
-    password: ""
+    password: "",
+    passwordVerification:""
   };
 
   oUserT.first_name = useSelector(state => state.userReducer.firstName);
   oUserT.last_name = useSelector(state => state.userReducer.lastName);
   oUserT.user_name = useSelector(state => state.userReducer.userName);
   oUserT.password = useSelector(state => state.userReducer.password);
-  console.log(oUserT);
-  //   useEffect(() => {
-  //     setoUser(oUserT);
-  //   }, [oUserT]);
+  oUserT.passwordVerification = useSelector(state => state.userReducer.PasswordVerification);
 
-  //   setoUser(oUserT);
 
-  //   setFirstName(oUser.first_name);
-  //   setLastName(oUser.last_name);
-  //   setUserName(oUser.user_name);
-  //   setPassword(oUser.password);
+  // console.log("oUserT:",oUserT);
+
 
   const sendRegistration = () => {
-    // let oUser = {
-    //   first_name: firstName,
-    //   last_name: lastName,
-    //   user_name: userName,
-    //   password: password
-    // };
-    console.log(oUser);
+
+    console.log("sending user to signup: ", oUser);
     axios
       .post(`http://localhost:4001/login/signup`, { oUser })
       .then(res => {
-        console.log(res);
-        console.log(res.data);
+        // console.log(res);
+        console.log("success: ",res.data);
+        if (res.data.result=="success")
+        localStorage.setItem('token', res.data.token);
+        else{
+          if (res.data.reason=="user name taken")
+          setModalShow(true)
+        }
       })
       .catch(function(error) {
-        console.log(error);
+        console.log("error: ",error);
       });
   };
 
+
+  useEffect(()=>{
+    setoUser({...oUserT})
+  },[oUserT.first_name,oUserT.last_name,oUserT.user_name,oUserT.passwordVerification,oUserT.password])
+
+
   const classes = useStyles();
   return (
+
     <Container className={classes.root}>
+      {modalShow ? <CostumModal username={oUserT.user_name} show={modalShow} onHide={() => setModalShow(false)}/>:null}  
       <Paper elevation={10}>
         <Box p={3}>
           <CssBaseline />
@@ -103,7 +111,7 @@ function Signup() {
               <form className={classes.form} noValidate>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
-                    <CostumTextField error={true} id={"FirstName"} />
+                    <CostumTextField id={"FirstName"} />
                   </Grid>
                   <Grid item xs={12}>
                     <CostumTextField id={"LastName"} />
@@ -115,7 +123,9 @@ function Signup() {
                     <CostumTextField id={"Password"} />
                   </Grid>
                   <Grid item xs={12}>
-                    <CostumTextField id={"Password Verification"} />
+
+                    {(oUser.password == oUser.passwordVerification) ?
+                    <CostumTextField error={false} id={"PasswordVerification"} /> : <CostumTextField error={true} id={"PasswordVerification"} />}
                   </Grid>
                 </Grid>
                 <Box mt={2}>

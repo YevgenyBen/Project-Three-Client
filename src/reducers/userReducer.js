@@ -2,7 +2,8 @@ const initialState = {
   firstName: "",
   lastName: "",
   userName: "",
-  password: ""
+  password: "",
+  PasswordVerification:""
 };
 
 const userReducer = (state = initialState, action) => {
@@ -26,6 +27,11 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         password: action.payload
+      };
+    case "PasswordVerification":
+      return {
+        ...state,
+        PasswordVerification: action.payload
       };
     default:
       return state;
