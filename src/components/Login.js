@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "typeface-roboto";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
@@ -11,6 +11,9 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import axios from "axios";
+import CostumModal from "./CostumModal"
+import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -35,10 +38,45 @@ const useStyles = makeStyles({
   }
 });
 
-function Login() {
+function Login(props) {
+  var oLoginUser = {
+    UserName: "",
+    Password: ""
+  }
+  const handleChange = event => {
+    oLoginUser[event.target.name] = event.target.value
+  };
+
+
   const classes = useStyles();
+  const [modalShow, setModalShow] = useState(false);
+
+  const sendLogin = () => {
+
+    console.log("sending user to login: ", oLoginUser);
+    axios
+      .post(`http://localhost:4001/login`, { oLoginUser })
+      .then(res => {
+        // console.log(res);
+        console.log("success: ", res.data);
+        if (res.data.result == "success") {
+          console.log("success: ", res.data);
+          localStorage.setItem('token', res.data.token);
+          props.history.push("/Vacations");
+        }
+        else {
+          if (res.data.reason == "Bad user name or password")
+            setModalShow(true)
+        }
+      })
+      .catch(function (error) {
+        console.log("error: ", error);
+      });
+  };
+
   return (
     <Container className={classes.root}>
+      {modalShow ? <CostumModal registration={false} username="" msg="Bad user name or password" show={modalShow} onHide={() => setModalShow(false)} /> : null}
       <Paper elevation={10}>
         <Box p={3}>
           <CssBaseline />
@@ -54,21 +92,23 @@ function Login() {
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <TextField
+                      onChange={handleChange}
                       variant="outlined"
                       required
                       fullWidth
                       id="User Name"
                       label="User Name"
-                      name="User Name"
+                      name="UserName"
                       autoComplete="User Name"
                     />
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
+                      onChange={handleChange}
                       variant="outlined"
                       required
                       fullWidth
-                      name="password"
+                      name="Password"
                       label="Password"
                       type="password"
                       id="password"
@@ -78,7 +118,8 @@ function Login() {
                 </Grid>
                 <Box mt={2}>
                   <Button
-                    type="submit"
+
+                    onClick={sendLogin}
                     fullWidth
                     variant="contained"
                     color="primary"
@@ -104,4 +145,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default withRouter(Login);

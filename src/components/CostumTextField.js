@@ -18,12 +18,12 @@ function CostumTextField(props) {
   return (
     <TextField
       onChange={handleChange}
-      variant="outlined"
+      variant="standard"
       required
       fullWidth
       error={props.error}
       id={props.id}
-      label={props.id}
+      label={props.label}
       name={props.id}
       autoComplete={props.id}
     />

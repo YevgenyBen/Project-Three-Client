@@ -19,11 +19,14 @@ function CostumModal(props){
 
       <Modal onHide={props.onHide} show={props.show} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Registration error</Modal.Title>
+          <Modal.Title>Error</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Username <Typography variant={'h5'} display={'inline'}>
+        <Modal.Body>
+        {props.registration?<Typography variant={'h5'} display={'inline'}>
             {props.username}
-                </Typography> is taken, Please choose another</Modal.Body>
+    </Typography>:null}   
+    {props.msg}
+    </Modal.Body>
             
              
         {/* <Modal.Footer>

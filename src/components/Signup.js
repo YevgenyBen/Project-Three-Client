@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import "typeface-roboto";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
@@ -53,7 +53,7 @@ function Signup() {
     last_name: "",
     user_name: "",
     password: "",
-    passwordVerification:""
+    passwordVerification: ""
   };
 
   oUserT.first_name = useSelector(state => state.userReducer.firstName);
@@ -73,30 +73,42 @@ function Signup() {
       .post(`http://localhost:4001/login/signup`, { oUser })
       .then(res => {
         // console.log(res);
-        console.log("success: ",res.data);
-        if (res.data.result=="success")
-        localStorage.setItem('token', res.data.token);
-        else{
-          if (res.data.reason=="user name taken")
-          setModalShow(true)
+        console.log("success: ", res.data);
+        if (res.data.result == "success")
+          localStorage.setItem('token', res.data.token);
+        else {
+          if (res.data.reason == "user name taken")
+            setModalShow(true)
         }
       })
-      .catch(function(error) {
-        console.log("error: ",error);
+      .catch(function (error) {
+        console.log("error: ", error);
       });
   };
 
 
-  useEffect(()=>{
-    setoUser({...oUserT})
-  },[oUserT.first_name,oUserT.last_name,oUserT.user_name,oUserT.passwordVerification,oUserT.password])
+  useEffect(() => {
+    setoUser({ ...oUserT })
+  }, [oUserT.first_name, oUserT.last_name, oUserT.user_name, oUserT.passwordVerification, oUserT.password])
 
 
   const classes = useStyles();
   return (
 
     <Container className={classes.root}>
-      {modalShow ? <CostumModal username={oUserT.user_name} show={modalShow} onHide={() => setModalShow(false)}/>:null}  
+      {
+        modalShow
+          ?
+          <CostumModal
+            registration={true}
+            msg="  is taken, Please choose another username"
+            username={oUserT.user_name}
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+          />
+          :
+          null
+      }
       <Paper elevation={10}>
         <Box p={3}>
           <CssBaseline />
@@ -111,32 +123,45 @@ function Signup() {
               <form className={classes.form} noValidate>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
-                    <CostumTextField id={"FirstName"} />
+                    <CostumTextField id={"FirstName"} label={"First Name"} />
                   </Grid>
                   <Grid item xs={12}>
-                    <CostumTextField id={"LastName"} />
+                    <CostumTextField id={"LastName"} label={"Last Name"} />
                   </Grid>
                   <Grid item xs={12}>
-                    <CostumTextField id={"UserName"} />
+                    <CostumTextField id={"UserName"} label={"User Name"} />
                   </Grid>
                   <Grid item xs={12}>
-                    <CostumTextField id={"Password"} />
+                    <CostumTextField id={"Password"} label={"Password"} />
                   </Grid>
                   <Grid item xs={12}>
 
                     {(oUser.password == oUser.passwordVerification) ?
-                    <CostumTextField error={false} id={"PasswordVerification"} /> : <CostumTextField error={true} id={"PasswordVerification"} />}
+                      <CostumTextField error={false} id={"PasswordVerification"} label={"Password Verification"} /> : <CostumTextField error={true} id={"PasswordVerification"} label={"Password Verification"} />}
                   </Grid>
                 </Grid>
                 <Box mt={2}>
-                  <Button
-                    onClick={sendRegistration}
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}>
-                    Sign Up
+                  {(oUserT.first_name && oUserT.last_name && oUserT.password && oUserT.passwordVerification && oUserT.user_name) ?
+                    <Button
+                      onClick={sendRegistration}
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      className={classes.submit}
+                    >
+                      Sign Up
+
+                  </Button> : <Button
+                      onClick={sendRegistration}
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      className={classes.submit}
+                      disabled>
+                      Please fill in all fields
                   </Button>
+                  }
+
                 </Box>
                 <Box mt={1}>
                   <Grid container justify="flex-end">
