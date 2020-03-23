@@ -93,7 +93,7 @@ function Login(props) {
                   <Grid item xs={12}>
                     <TextField
                       onChange={handleChange}
-                      variant="outlined"
+                      variant="standard"
                       required
                       fullWidth
                       id="User Name"
@@ -105,7 +105,7 @@ function Login(props) {
                   <Grid item xs={12}>
                     <TextField
                       onChange={handleChange}
-                      variant="outlined"
+                      variant="standard"
                       required
                       fullWidth
                       name="Password"

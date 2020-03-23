@@ -123,21 +123,22 @@ function Signup() {
               <form className={classes.form} noValidate>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
-                    <CostumTextField id={"FirstName"} label={"First Name"} />
+                    <CostumTextField id={"FirstName"} label={"First Name"} type={"Text"} />
                   </Grid>
                   <Grid item xs={12}>
-                    <CostumTextField id={"LastName"} label={"Last Name"} />
+                    <CostumTextField id={"LastName"} label={"Last Name"} type={"Text"} />
                   </Grid>
                   <Grid item xs={12}>
-                    <CostumTextField id={"UserName"} label={"User Name"} />
+                    <CostumTextField id={"UserName"} label={"User Name"} type={"Text"} />
                   </Grid>
                   <Grid item xs={12}>
-                    <CostumTextField id={"Password"} label={"Password"} />
+                    <CostumTextField id={"Password"} label={"Password"} type={"Password"} />
                   </Grid>
                   <Grid item xs={12}>
 
                     {(oUser.password == oUser.passwordVerification) ?
-                      <CostumTextField error={false} id={"PasswordVerification"} label={"Password Verification"} /> : <CostumTextField error={true} id={"PasswordVerification"} label={"Password Verification"} />}
+                      <CostumTextField error={false} id={"PasswordVerification"} label={"Password Verification"} type={"Password"} /> : 
+                      <CostumTextField error={true} id={"PasswordVerification"} label={"Password Verification"} type={"Password"} />}
                   </Grid>
                 </Grid>
                 <Box mt={2}>

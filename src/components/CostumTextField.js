@@ -26,6 +26,7 @@ function CostumTextField(props) {
       label={props.label}
       name={props.id}
       autoComplete={props.id}
+      type={props.type}
     />
   );
 }
