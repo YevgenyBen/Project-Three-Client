@@ -6,7 +6,7 @@ const initialState = {
   PasswordVerification:""
 };
 
-const userReducer = (state = initialState, action) => {
+const signUpReducer = (state = initialState, action) => {
   switch (action.type) {
     case "FirstName":
       return {
@@ -37,4 +37,4 @@ const userReducer = (state = initialState, action) => {
       return state;
   }
 };
-export default userReducer;
+export default signUpReducer;

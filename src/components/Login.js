@@ -50,9 +50,12 @@ function Login(props) {
 
   const classes = useStyles();
   const [modalShow, setModalShow] = useState(false);
+  const [lUser,setLUser]=useState({})
+
+  
 
   const sendLogin = () => {
-
+    
     console.log("sending user to login: ", oLoginUser);
     axios
       .post(`http://localhost:4001/login`, { oLoginUser })
@@ -88,7 +91,7 @@ function Login(props) {
               Triper
             </Typography> */}
             <Box mt={1}>
-              <form className={classes.form} noValidate>
+              
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <TextField
@@ -118,7 +121,6 @@ function Login(props) {
                 </Grid>
                 <Box mt={2}>
                   <Button
-
                     onClick={sendLogin}
                     fullWidth
                     variant="contained"
@@ -136,7 +138,7 @@ function Login(props) {
                     </Grid>
                   </Grid>
                 </Box>
-              </form>
+    
             </Box>
           </div>
         </Box>

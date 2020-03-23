@@ -56,11 +56,11 @@ function Signup() {
     passwordVerification: ""
   };
 
-  oUserT.first_name = useSelector(state => state.userReducer.firstName);
-  oUserT.last_name = useSelector(state => state.userReducer.lastName);
-  oUserT.user_name = useSelector(state => state.userReducer.userName);
-  oUserT.password = useSelector(state => state.userReducer.password);
-  oUserT.passwordVerification = useSelector(state => state.userReducer.PasswordVerification);
+  oUserT.first_name = useSelector(state => state.signUpReducer.firstName);
+  oUserT.last_name = useSelector(state => state.signUpReducer.lastName);
+  oUserT.user_name = useSelector(state => state.signUpReducer.userName);
+  oUserT.password = useSelector(state => state.signUpReducer.password);
+  oUserT.passwordVerification = useSelector(state => state.signUpReducer.PasswordVerification);
 
 
   // console.log("oUserT:",oUserT);
