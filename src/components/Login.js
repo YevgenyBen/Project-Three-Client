@@ -14,6 +14,8 @@ import Container from "@material-ui/core/Container";
 import axios from "axios";
 import CostumModal from "./CostumModal"
 import { withRouter } from "react-router-dom";
+import { loginActions } from "../actions/loginActions"
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   root: {
@@ -39,23 +41,30 @@ const useStyles = makeStyles({
 });
 
 function Login(props) {
+
+  const dispatch = useDispatch();
+
+
+  const handleChange = event => {
+    dispatch(loginActions[event.target.name](event.target.value));
+  };
+
   var oLoginUser = {
     UserName: "",
     Password: ""
   }
-  const handleChange = event => {
-    oLoginUser[event.target.name] = event.target.value
-  };
 
+  oLoginUser.UserName = useSelector(state => state.loginReducer.UserName);
+  oLoginUser.Password = useSelector(state => state.loginReducer.Password);
 
   const classes = useStyles();
   const [modalShow, setModalShow] = useState(false);
-  const [lUser,setLUser]=useState({})
+  const [lUser, setLUser] = useState({})
 
-  
+
 
   const sendLogin = () => {
-    
+
     console.log("sending user to login: ", oLoginUser);
     axios
       .post(`http://localhost:4001/login`, { oLoginUser })
@@ -91,54 +100,54 @@ function Login(props) {
               Triper
             </Typography> */}
             <Box mt={1}>
-              
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      onChange={handleChange}
-                      variant="standard"
-                      required
-                      fullWidth
-                      id="User Name"
-                      label="User Name"
-                      name="UserName"
-                      autoComplete="User Name"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      onChange={handleChange}
-                      variant="standard"
-                      required
-                      fullWidth
-                      name="Password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                    />
+
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={handleChange}
+                    variant="standard"
+                    required
+                    fullWidth
+                    id="User Name"
+                    label="User Name"
+                    name="UserName"
+                    autoComplete="User Name"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    onChange={handleChange}
+                    variant="standard"
+                    required
+                    fullWidth
+                    name="Password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                  />
+                </Grid>
+              </Grid>
+              <Box mt={2}>
+                <Button
+                  onClick={sendLogin}
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}>
+                  Log In
+                  </Button>
+              </Box>
+              <Box mt={1}>
+                <Grid container justify="flex-end">
+                  <Grid item>
+                    <Link to="/SignUp" variant="body2">
+                      Don't have an account? Sign Up
+                      </Link>
                   </Grid>
                 </Grid>
-                <Box mt={2}>
-                  <Button
-                    onClick={sendLogin}
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}>
-                    Log In
-                  </Button>
-                </Box>
-                <Box mt={1}>
-                  <Grid container justify="flex-end">
-                    <Grid item>
-                      <Link to="/SignUp" variant="body2">
-                        Don't have an account? Sign Up
-                      </Link>
-                    </Grid>
-                  </Grid>
-                </Box>
-    
+              </Box>
+
             </Box>
           </div>
         </Box>

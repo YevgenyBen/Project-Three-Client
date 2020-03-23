@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { useDispatch } from "react-redux";
-import { UserActions } from "../actions/UserActions";
+import { signUpActions } from "../actions/signUpActions";
 
 function CostumTextField(props) {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ function CostumTextField(props) {
 
   const handleChange = event => {
     // console.log(event.target.name);
-    dispatch(UserActions[event.target.name](event.target.value));
+    dispatch(signUpActions[event.target.name](event.target.value));
   };
   return (
     <TextField

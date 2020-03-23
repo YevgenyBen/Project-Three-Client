@@ -32,14 +32,14 @@ function UserPage() {
                     console.log("error msg: ", error);
 
             });
-    }, [vacations]);
+    }, []);
 
     return (
         <div>
             <Header />
             {authorized
                 ?
-                <Container className={"container"}>
+                <Container disableGutters={true} className={"container"}>
                 {vacations.map(() => {
                     return <VacationCard className={"card"}/>
                 })}

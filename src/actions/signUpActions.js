@@ -1,4 +1,4 @@
-export const UserActions = {
+export const signUpActions = {
   TYPE: val => {
     return {
       type: "TYPE",
