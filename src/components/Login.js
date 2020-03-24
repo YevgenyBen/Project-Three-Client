@@ -74,7 +74,11 @@ function Login(props) {
         if (res.data.result == "success") {
           console.log("success: ", res.data);
           localStorage.setItem('token', res.data.token);
-          props.history.push("/Vacations");
+          const location = {
+            pathname: '/Vacations',
+            state: { username: oLoginUser.UserName }
+          }
+          props.history.push(location);
         }
         else {
           if (res.data.reason == "Bad user name or password")

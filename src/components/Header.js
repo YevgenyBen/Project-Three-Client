@@ -7,10 +7,9 @@ import Typography from "@material-ui/core/Typography";
 // import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
-class Header extends React.Component {
-  render() {
+function Header (props){
     return (
-      <AppBar color="primary">
+      <AppBar style={{backgroundColor:"#006064"}}>
         <Toolbar>
           <Grid
             container
@@ -19,12 +18,11 @@ class Header extends React.Component {
             alignItems="flex-end">
             <Typography variant="h6">Triper</Typography>
 
-            <Typography variant="h6">Button</Typography>
+    <Typography variant="h6">{props.user}</Typography>
           </Grid>
         </Toolbar>
       </AppBar>
     );
-  }
 }
 
 export default Header;

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, withRouter, Redirect } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/Header";
 import VacationCard from "../components/VacationCard"
 import Container from '@material-ui/core/Container';
 import "./UserPage.css"
 
-function UserPage() {
+function UserPage(props) {
     const [authorized, setAuthorized] = useState(true)
     const [vacations, setVacations] = useState([])
 
@@ -36,12 +36,20 @@ function UserPage() {
 
     return (
         <div>
-            <Header />
+            {console.log(props.location)}
+            <Header user={props.location.state.username}/>
             {authorized
                 ?
                 <Container disableGutters={true} className={"container"}>
-                {vacations.map(() => {
-                    return <VacationCard className={"card"}/>
+                {vacations.map((vacation,index) => {
+                    return <VacationCard 
+                    description={ vacation.description} 
+                    destination={vacation.destination} 
+                    price={vacation.price}  
+                    from_date={vacation.from_date}
+                    to_date={vacation.to_date}
+                    key={index} 
+                    className={"card"}/>
                 })}
                 </Container>
                 :
@@ -51,4 +59,4 @@ function UserPage() {
     )
 }
 
-export default UserPage;
+export default withRouter(UserPage);

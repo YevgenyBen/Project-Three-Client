@@ -1,6 +1,33 @@
 .container{
-    margin-top: 5%;
+    margin-top: 100px;
     display: grid;
     grid-template-columns:  auto auto auto auto;
     grid-row-gap: 15px;
 }
+
+@media (max-width: 1280px) {
+    .container{
+        margin-top: 100px;
+        display: grid;
+        grid-template-columns:  auto auto auto;
+        grid-row-gap: 15px;
+    }
+  }
+
+  @media (max-width: 990px) {
+    .container{
+        margin-top: 100px;
+        display: grid;
+        grid-template-columns:  auto auto;
+        grid-row-gap: 15px;
+    }
+  }
+
+@media (max-width: 768px) {
+    .container{
+        margin-top: 100px;
+        display: grid;
+        grid-template-columns:  auto ;
+        grid-row-gap: 15px;
+    }
+  }
