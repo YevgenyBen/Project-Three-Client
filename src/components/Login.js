@@ -59,7 +59,7 @@ function Login(props) {
 
   const classes = useStyles();
   const [modalShow, setModalShow] = useState(false);
-  const [lUser, setLUser] = useState({})
+  // const [lUser, setLUser] = useState({})
 
 
 
@@ -71,7 +71,7 @@ function Login(props) {
       .then(res => {
         // console.log(res);
         console.log("success: ", res.data);
-        if (res.data.result == "success") {
+        if (res.data.result === "success") {
           console.log("success: ", res.data);
           localStorage.setItem('token', res.data.token);
           const location = {
@@ -81,7 +81,7 @@ function Login(props) {
           props.history.push(location);
         }
         else {
-          if (res.data.reason == "Bad user name or password")
+          if (res.data.reason === "Bad user name or password")
             setModalShow(true)
         }
       })
@@ -97,7 +97,7 @@ function Login(props) {
         <Box p={3}>
           <CssBaseline />
           <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
+            <Avatar>
               <DirectionsBoatIcon />
             </Avatar>
             {/* <Typography component="h1" variant="h5">

@@ -3,8 +3,8 @@ import "typeface-roboto";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-// import Button from "@material-ui/core/Button";
-// import { makeStyles } from "@material-ui/core/styles";
+import Avatar from "@material-ui/core/Avatar";
+import DirectionsBoatIcon from "@material-ui/icons/DirectionsBoat";
 import Grid from "@material-ui/core/Grid";
 
 function Header (props){
@@ -16,7 +16,9 @@ function Header (props){
             direction="row"
             justify="space-between"
             alignItems="flex-end">
-            <Typography variant="h6">Triper</Typography>
+                        <Avatar>
+              <DirectionsBoatIcon />
+            </Avatar>
 
     <Typography variant="h6">{props.user}</Typography>
           </Grid>

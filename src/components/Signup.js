@@ -45,10 +45,9 @@ function Signup() {
   // const [userName, setUserName] = useState("");
   // const [password, setPassword] = useState("");
   const [oUser, setoUser] = useState({});
-  const [userNameTaken, setUserNameTaken] = useState(false);
   const [modalShow, setModalShow] = useState(false);
 
-  var oUserT = {
+  const oUserT = {
     first_name: "",
     last_name: "",
     user_name: "",
@@ -74,10 +73,10 @@ function Signup() {
       .then(res => {
         // console.log(res);
         console.log("success: ", res.data);
-        if (res.data.result == "success")
+        if (res.data.result === "success")
           localStorage.setItem('token', res.data.token);
         else {
-          if (res.data.reason == "user name taken")
+          if (res.data.reason === "user name taken")
             setModalShow(true)
         }
       })
@@ -113,7 +112,7 @@ function Signup() {
         <Box p={3}>
           <CssBaseline />
           <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
+            <Avatar>
               <DirectionsBoatIcon />
             </Avatar>
             {/* <Typography component="h1" variant="h5">
@@ -136,7 +135,7 @@ function Signup() {
                   </Grid>
                   <Grid item xs={12}>
 
-                    {(oUser.password == oUser.passwordVerification) ?
+                    {(oUser.password === oUser.passwordVerification) ?
                       <CostumTextField error={false} id={"PasswordVerification"} label={"Password Verification"} type={"Password"} /> : 
                       <CostumTextField error={true} id={"PasswordVerification"} label={"Password Verification"} type={"Password"} />}
                   </Grid>

@@ -40,7 +40,7 @@ function UserPage(props) {
             <Header user={props.location.state.username}/>
             {authorized
                 ?
-                <Container disableGutters={true} className={"container"}>
+                <Container style={{marginBottom:"50px"}} disableGutters={false} className={"container"}>
                 {vacations.map((vacation,index) => {
                     return <VacationCard 
                     description={ vacation.description} 

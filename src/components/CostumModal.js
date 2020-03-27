@@ -1,14 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
-import React, {useEffect,useState} from "react";
+import React, {useState} from "react";
 import Typography from '@material-ui/core/Typography';
 
 function CostumModal(props){
 
-    const [show, setShow] = useState(true);
+    // const [show, setShow] = useState(true);
 
-    const handleClose = () => setShow(false);
+    // const handleClose = () => setShow(false);
     // const handleShow = () => setShow(true);
 
     return(

@@ -5,7 +5,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Paper from "@material-ui/core/Paper";
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
@@ -39,9 +38,17 @@ export default function VacationCard(props) {
       <CardHeader style={{
         display: "flex",
         flexDirection: "column",
-        alignItems: "center"
+        alignItems: "center",
+        padding:"10px 0px 0px 0"
       }}
         title={props.destination}
+      />
+      <CardHeader style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding:"5px 0px 10px 0px "
+      }}
         subheader={props.price + '\u20AC'}
       />
       <CardMedia
