@@ -13,8 +13,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import axios from "axios";
 import CostumTextField from "./CostumTextField";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { currentUserActions } from "../actions/currectUserActions"
 import CostumModal from "./CostumModal"
+import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -39,11 +41,8 @@ const useStyles = makeStyles({
   }
 });
 
-function Signup() {
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [userName, setUserName] = useState("");
-  // const [password, setPassword] = useState("");
+function Signup(props) {
+  const dispatch = useDispatch();
   const [oUser, setoUser] = useState({});
   const [modalShow, setModalShow] = useState(false);
 
@@ -73,9 +72,19 @@ function Signup() {
       .then(res => {
         // console.log(res);
         console.log("success: ", res.data);
-        if (res.data.result === "success")
+        if (res.data.result === "success") {
+          console.log("success: res.data", res.data);
           localStorage.setItem('token', res.data.token);
-        else {
+          //set redux state current user
+          dispatch(currentUserActions["currentUser"](oUser.user_name));
+          dispatch(currentUserActions["role"](1));
+          dispatch(currentUserActions["token"](res.data.token));
+          const location = {
+            pathname: '/Vacations',
+            state: { username: oUser.UserName }
+          }
+          props.history.push(location);
+        } else {
           if (res.data.reason === "user name taken")
             setModalShow(true)
         }
@@ -136,7 +145,7 @@ function Signup() {
                   <Grid item xs={12}>
 
                     {(oUser.password === oUser.passwordVerification) ?
-                      <CostumTextField error={false} id={"PasswordVerification"} label={"Password Verification"} type={"Password"} /> : 
+                      <CostumTextField error={false} id={"PasswordVerification"} label={"Password Verification"} type={"Password"} /> :
                       <CostumTextField error={true} id={"PasswordVerification"} label={"Password Verification"} type={"Password"} />}
                   </Grid>
                 </Grid>
@@ -181,4 +190,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default withRouter(Signup);

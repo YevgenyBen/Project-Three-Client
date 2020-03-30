@@ -15,6 +15,7 @@ import axios from "axios";
 import CostumModal from "./CostumModal"
 import { withRouter } from "react-router-dom";
 import { loginActions } from "../actions/loginActions"
+import { currentUserActions } from "../actions/currectUserActions"
 import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles({
@@ -50,17 +51,12 @@ function Login(props) {
   };
 
   var oLoginUser = {
-    UserName: "",
-    Password: ""
+    UserName: useSelector(state => state.loginReducer.UserName),
+    Password: useSelector(state => state.loginReducer.Password)
   }
-
-  oLoginUser.UserName = useSelector(state => state.loginReducer.UserName);
-  oLoginUser.Password = useSelector(state => state.loginReducer.Password);
 
   const classes = useStyles();
   const [modalShow, setModalShow] = useState(false);
-  // const [lUser, setLUser] = useState({})
-
 
 
   const sendLogin = () => {
@@ -69,11 +65,13 @@ function Login(props) {
     axios
       .post(`http://localhost:4001/login`, { oLoginUser })
       .then(res => {
-        // console.log(res);
-        console.log("success: ", res.data);
         if (res.data.result === "success") {
-          console.log("success: ", res.data);
+          console.log("success: res.data", res.data);
           localStorage.setItem('token', res.data.token);
+          //set redux state current user
+          dispatch(currentUserActions["currentUser"](oLoginUser.UserName));
+          dispatch(currentUserActions["role"](res.data.role));
+          dispatch(currentUserActions["token"](res.data.token));
           const location = {
             pathname: '/Vacations',
             state: { username: oLoginUser.UserName }
@@ -116,6 +114,7 @@ function Login(props) {
                     label="User Name"
                     name="UserName"
                     autoComplete="User Name"
+                    value={useSelector(state => state.loginReducer.UserName)}
                   />
                 </Grid>
                 <Grid item xs={12}>

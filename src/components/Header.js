@@ -6,25 +6,25 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import DirectionsBoatIcon from "@material-ui/icons/DirectionsBoat";
 import Grid from "@material-ui/core/Grid";
+import { useSelector } from "react-redux";
 
-function Header (props){
-    return (
-      <AppBar style={{backgroundColor:"#006064"}}>
-        <Toolbar>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="flex-end">
-                        <Avatar>
-              <DirectionsBoatIcon />
-            </Avatar>
-
-    <Typography variant="h6">{props.user}</Typography>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-    );
+function Header(props) {
+  return (
+    <AppBar style={{ backgroundColor: "#006064" }}>
+      <Toolbar>
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="flex-end">
+          <Avatar>
+            <DirectionsBoatIcon />
+          </Avatar>
+          <Typography variant="h6">{useSelector(state => state.currentUserReducer.currentUser)}</Typography>
+        </Grid>
+      </Toolbar>
+    </AppBar>
+  );
 }
 
 export default Header;

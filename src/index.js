@@ -14,7 +14,12 @@ import { PersistGate } from 'redux-persist/integration/react'
 const persistConfig = {
   key: 'root',
   storage: storage,
-  stateReconciler: autoMergeLevel2 // see "Merge Process" section for details.
+  stateReconciler: autoMergeLevel2,
+  whitelist: [
+    // 'loginReducer',
+    //  'signUpReducer',
+    'currentUserReducer'
+  ],
 };
 
 const pReducer = persistReducer(persistConfig, rootReducer);
@@ -28,7 +33,7 @@ const persistor = persistStore(store);
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+    <PersistGate persistor={persistor}>
       <App />
     </PersistGate>
   </Provider>,
