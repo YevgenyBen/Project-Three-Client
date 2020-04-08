@@ -72,11 +72,19 @@ function Login(props) {
           dispatch(currentUserActions["currentUser"](oLoginUser.UserName));
           dispatch(currentUserActions["role"](res.data.role));
           dispatch(currentUserActions["token"](res.data.token));
-          const location = {
-            pathname: '/Vacations',
-            state: { username: oLoginUser.UserName }
+          if (oLoginUser.UserName === "Admin") {
+            const location = {
+              pathname: '/Admin',
+              state: { username: oLoginUser.UserName }
+            }
+            props.history.push(location);
+          } else {
+            const location = {
+              pathname: '/Vacations',
+              state: { username: oLoginUser.UserName }
+            }
+            props.history.push(location);
           }
-          props.history.push(location);
         }
         else {
           if (res.data.reason === "Bad user name or password")
@@ -98,9 +106,6 @@ function Login(props) {
             <Avatar>
               <DirectionsBoatIcon />
             </Avatar>
-            {/* <Typography component="h1" variant="h5">
-              Triper
-            </Typography> */}
             <Box mt={1}>
 
               <Grid container spacing={2}>
@@ -114,7 +119,6 @@ function Login(props) {
                     label="User Name"
                     name="UserName"
                     autoComplete="User Name"
-                    value={useSelector(state => state.loginReducer.UserName)}
                   />
                 </Grid>
                 <Grid item xs={12}>

@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function VacationCard(props) {
-  const [addMode, setAddMode] = useState(props.mode)
+  const [addMode] = useState(props.mode)
   const dispatch = useDispatch();
 
   let userName = useSelector(state => state.currentUserReducer.currentUser)
