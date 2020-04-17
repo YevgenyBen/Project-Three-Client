@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { withRouter, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/Header";
 import VacationCard from "../components/VacationCard"
@@ -10,8 +10,11 @@ function Vacations(props) {
 
     const [vacations, setVacations] = useState([])
     const [favacations, setFaVacations] = useState([])
+
     var flag = useSelector(state => state.updateReducer.update)
     let currentUser = useSelector(state => state.currentUserReducer.currentUser)
+    // console.log('currentUser: ', currentUser);
+
     useEffect(() => {
         var userToken = localStorage.getItem("token");
         var header = `authorization: bearer ${userToken}`;
@@ -67,6 +70,7 @@ function Vacations(props) {
                 ?
                 <Container style={{ marginBottom: "50px" }} disableGutters={false} className={"container"}>
                     {aFavorite_vacations.map((vacation, index) => {
+
                         return <VacationCard
                             description={vacation.description}
                             destination={vacation.destination}
@@ -74,6 +78,7 @@ function Vacations(props) {
                             from_date={vacation.from_date}
                             to_date={vacation.to_date}
                             id={vacation.id}
+                            picture={vacation.picture}
                             key={index}
                             className={"card"}
                             color={"primary"}
@@ -88,6 +93,7 @@ function Vacations(props) {
                             from_date={vacation.from_date}
                             to_date={vacation.to_date}
                             id={vacation.id}
+                            picture={vacation.picture}
                             key={index}
                             className={"card"}
                             color={"default"}

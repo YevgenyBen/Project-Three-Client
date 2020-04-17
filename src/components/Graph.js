@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { withRouter, Redirect } from "react-router-dom";
-import axios from "axios";
-import Header from "../components/Header";
-import Container from '@material-ui/core/Container';
-import { useSelector } from "react-redux";
+import React from "react";
+import { withRouter } from "react-router-dom";
 import { ResponsiveBar } from '@nivo/bar'
 
 function Graph({ data }) {
-    { console.log(data) }
     return (
         < ResponsiveBar
             data={data}

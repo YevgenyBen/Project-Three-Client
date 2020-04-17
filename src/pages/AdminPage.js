@@ -1,35 +1,41 @@
-import React, { useEffect, useState } from "react";
-import { Switch, Route, BrowserRouter, withRouter, Redirect, useRouteMatch } from "react-router-dom";
-import axios from "axios";
+import React from "react";
+import { Switch, Route, BrowserRouter, withRouter } from "react-router-dom";
 import Header from "../components/Header";
-import Container from '@material-ui/core/Container';
 import { useSelector } from "react-redux";
 import AdminMenu from "../components/AdminMenu"
-import Graph from "../components/Graph"
 import GraphHolder from "../components/GraphHolder"
 import Vacations from "../components/Vacations"
+import DetailedView from "../components/DetailedView"
+import ProtectedRoute from "../components/ProtectedRoute"
+import PrivateRoute from "../components/PrivateRoute"
 
 
-function AdminPage() {
-    let { path, url } = useRouteMatch();
-    //get all favortie, todo
+function AdminPage(props) {
 
-    // useEffect(() => {
-
-    // }, []);
 
     let currentUser = useSelector(state => state.currentUserReducer.currentUser)
     return (
         <div>
             <Header user={currentUser} />
             <BrowserRouter>
-
                 <Switch>
-                    <Route exact path="/Graph" component={GraphHolder} />
-                    <Route path="/Vacations" component={Vacations} />
+                    {/* <Route exact path="/Admin/Graph" component={GraphHolder} />
+                <Route exact path="/Admin/Vacations" component={Vacations} />
+                <Route exact path="/Admin/Add" component={DetailedView} />         
+                <Route exact path="/Admin" component={AdminMenu} /> */}
+                    <ProtectedRoute exact path="/Admin/Graph">
+                        <GraphHolder />
+                    </ProtectedRoute>
+                    <ProtectedRoute exact path="/Admin/Vacations">
+                        <Vacations />
+                    </ProtectedRoute>
+                    <ProtectedRoute exact path="/Admin/Add">
+                        <DetailedView />
+                    </ProtectedRoute>
+                    <ProtectedRoute exact path="/Admin">
+                        <AdminMenu />
+                    </ProtectedRoute>
 
-                    {/* <Route path="/AddVacation" component={AdminPage} /> */}
-                    <Route path="/" component={AdminMenu} />
                 </Switch>
             </BrowserRouter>
         </div>

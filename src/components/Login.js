@@ -42,7 +42,7 @@ const useStyles = makeStyles({
 });
 
 function Login(props) {
-
+  const currentUser = useSelector(state => state.currentUserReducer.currentUser)
   const dispatch = useDispatch();
 
 
@@ -63,7 +63,7 @@ function Login(props) {
 
     console.log("sending user to login: ", oLoginUser);
     axios
-      .post(`http://localhost:4001/login`, { oLoginUser })
+      .post(`http://localhost:4001/login`, { oLoginUser, currentUser: currentUser })
       .then(res => {
         if (res.data.result === "success") {
           console.log("success: res.data", res.data);

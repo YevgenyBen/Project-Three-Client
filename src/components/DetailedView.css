@@ -1,0 +1,61 @@
+.form-holder{
+    height: 100%;
+
+    display: grid;
+    margin: auto;
+    padding: 15px;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+      "destination    destination"
+      "from-date          to-date"
+      "error                error"
+      "price                price"
+      "upload              upload"
+      "description    description"
+      "description    description"
+      "save                cancel"
+}
+.destination {
+    grid-area: destination;
+    place-self: center ;
+  }
+  .error {
+    grid-area: error;
+    place-self: center ;
+  }
+  .upload {
+    grid-area: upload;
+    place-self: center ;
+  }
+  .from-date {
+    grid-area: from-date;
+    place-self: center ;
+  }
+  .to-date {
+    grid-area: to-date;
+    place-self: center ;
+  }
+  .price {
+    grid-area: price;
+    place-self: center ;
+  }
+  .picture {
+    grid-area: picture;
+    place-self: center ;
+  }
+  .description {
+    grid-area: description;
+    place-self: center ;
+  }
+  .save {
+    grid-area: save;
+    justify-self: start;
+    align-self: end;
+
+  }
+  .cancel {
+    grid-area: cancel;
+    justify-self: end;
+    align-self: end;
+  }

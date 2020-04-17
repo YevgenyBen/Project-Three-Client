@@ -1,7 +1,9 @@
 :root{
     --grid-template-columns:  auto auto auto auto;
 }
-
+.MuiContainer-root{
+    display: grid !important;
+}
 .container{
     margin-top: 100px;
     display: grid;
