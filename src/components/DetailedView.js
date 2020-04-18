@@ -17,6 +17,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
+import socketIOClient from "socket.io-client";
 
 
 import DateFnsUtils from '@date-io/date-fns';
@@ -43,6 +44,8 @@ function DetailedView(props) {
         description: props.edit ? props.currentVacation.description : "",
         id: props.edit ? props.currentVacation.id : "",
     });
+
+    const socket = socketIOClient("http://localhost:4001");
 
     const handleFromDateChange = (date) => {
         setFromDate(date);
@@ -111,6 +114,7 @@ function DetailedView(props) {
                 axios.post(`http://localhost:4001/vacations`, { ...vacation }, { headers: { header } })
             }).then(res => {
                 console.log(res);
+                socket.emit("vacation added")
                 props.handleClose()
             }).catch(function (error) {
                 console.log("error: ", error);
@@ -131,6 +135,7 @@ function DetailedView(props) {
             axios.post(`http://localhost:4001/vacations/update`, { ...vacation }, { headers: { header } })
                 .then(res => {
                     console.log(res);
+                    socket.emit("vacation edited")
                     props.handleClose()
                 }).catch(function (error) {
                     console.log("error: ", error);
@@ -142,6 +147,7 @@ function DetailedView(props) {
                     axios.post(`http://localhost:4001/vacations/update`, { ...vacation }, { headers: { header } })
                 }).then(res => {
                     console.log(res);
+                    socket.emit("vacation edited")
                     props.handleClose()
                 }).catch(function (error) {
                     console.log("error: ", error);

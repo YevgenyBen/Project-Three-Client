@@ -23,16 +23,16 @@ function AdminPage(props) {
                 <Route exact path="/Admin/Vacations" component={Vacations} />
                 <Route exact path="/Admin/Add" component={DetailedView} />         
                 <Route exact path="/Admin" component={AdminMenu} /> */}
-                    <ProtectedRoute exact path="/Admin/Graph">
+                    <ProtectedRoute path="/Admin/Graph">
                         <GraphHolder />
                     </ProtectedRoute>
-                    <ProtectedRoute exact path="/Admin/Vacations">
+                    <ProtectedRoute path="/Admin/Vacations">
                         <Vacations />
                     </ProtectedRoute>
-                    <ProtectedRoute exact path="/Admin/Add">
+                    <ProtectedRoute path="/Admin/Add">
                         <DetailedView />
                     </ProtectedRoute>
-                    <ProtectedRoute exact path="/Admin">
+                    <ProtectedRoute path="/Admin">
                         <AdminMenu />
                     </ProtectedRoute>
 

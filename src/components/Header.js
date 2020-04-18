@@ -38,7 +38,7 @@ function Header(props) {
             <DirectionsBoatIcon />
           </Avatar>
           <Typography variant="h6">
-            {useSelector(state => state.currentUserReducer.currentUser)}
+            Welcome {useSelector(state => state.currentUserReducer.currentUser)}
             <IconButton
               size="small"
               color="inherit"

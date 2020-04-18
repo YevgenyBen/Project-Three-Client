@@ -175,7 +175,7 @@ function Signup(props) {
                 <Box mt={1}>
                   <Grid container justify="flex-end">
                     <Grid item>
-                      <Link to="/" variant="body2">
+                      <Link to="/SignUp" variant="body2">
                         Already have an account? Sign in
                       </Link>
                     </Grid>

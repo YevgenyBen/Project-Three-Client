@@ -11,6 +11,7 @@ import PrivateRoute from "../components/PrivateRoute"
 
 function Main(props) {
   const currentUser = useSelector(state => state.currentUserReducer.currentUser)
+  console.log(currentUser)
   const userToken = useSelector(state => state.currentUserReducer.token)
   var header = `authorization: bearer ${userToken}`;
 
@@ -28,15 +29,22 @@ function Main(props) {
 
   }
   return (
+
+
+
+
     <BrowserRouter>
+      {currentUser ? (currentUser !== "Admin" ? <Redirect to="/Vacations" /> : <Redirect to="/Admin" />) :
+        <Redirect to="/SignUp" />
+      }
       <Switch>
-        <ProtectedRoute exact path="/Admin">
+
+        <ProtectedRoute path="/Admin">
           <AdminPage />
         </ProtectedRoute>
         <Route exact path="/Vacations" component={UserPage} />
-        <Route exact path="/SignUp" component={Signup} />
-        <Route exact path="/" component={Login} />
-        {/* <Route exact path="/Admin" component={AdminPage} /> */}
+        <Route exact path="/" component={Signup} />
+        <Route exact path="/SignUp" component={Login} />
       </Switch>
     </BrowserRouter>
   );

@@ -1,21 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/Header";
 import VacationCard from "../components/VacationCard"
 import Container from '@material-ui/core/Container';
 import { useSelector } from "react-redux";
+import socketIOClient from "socket.io-client";
 
 function Vacations(props) {
 
     const [vacations, setVacations] = useState([])
     const [favacations, setFaVacations] = useState([])
 
+    const socket = socketIOClient("http://localhost:4001");
+    socket.on("vacation deleted", () => {
+        getVacation()
+        console.log("vacation deleted");
+    });
+    socket.on("vacation edited", () => {
+        getVacation()
+        console.log("vacation deleted");
+    });
+    socket.on("vacation added", () => {
+        getVacation()
+        console.log("vacation added");
+    });
     var flag = useSelector(state => state.updateReducer.update)
     let currentUser = useSelector(state => state.currentUserReducer.currentUser)
     // console.log('currentUser: ', currentUser);
 
-    useEffect(() => {
+    function getVacation() {
         var userToken = localStorage.getItem("token");
         var header = `authorization: bearer ${userToken}`;
         axios
@@ -31,25 +45,14 @@ function Vacations(props) {
                     console.log("error msg: ", error);
 
             });
+    }
+
+    useEffect(() => {
+        getVacation()
     }, []);
 
     useEffect(() => {
-        var userToken = localStorage.getItem("token");
-        var header = `authorization: bearer ${userToken}`;
-        axios
-            .get(`http://localhost:4001/vacations/${currentUser} `, { headers: { header } })
-            .then(res => {
-                console.log("success: ", res.data.payload);
-                setVacations(res.data.payload.allVacations)
-                setFaVacations(res.data.payload.favoriteVacations)
-
-            })
-            .catch(function (error) {
-                if (error === "Error: Request failed with status code 403")
-                    console.log("error msg: ", error);
-
-
-            });
+        getVacation()
     }, [flag])
 
     const aFavorite_vacations = vacations.filter((vac) => {
@@ -107,4 +110,4 @@ function Vacations(props) {
     )
 }
 
-export default Vacations
+export default withRouter(Vacations)

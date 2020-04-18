@@ -11,14 +11,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-
 import { useDispatch, useSelector } from "react-redux";
 import { updateActions } from "../actions/updateActions"
-
 import axios from "axios";
-
 import EditModal from "./EditModal"
 import ConfirmationModal from "./ConfirmationModal"
+import socketIOClient from "socket.io-client";
 
 
 //animations
@@ -63,6 +61,10 @@ const useStyles = makeStyles(theme => ({
     // padding: theme.spacing(2, 4, 3),
   },
 }));
+
+
+const socket = socketIOClient("http://localhost:4001");
+
 
 
 
@@ -154,6 +156,7 @@ export default function VacationCard(props) {
       .then(res => {
         if (res.data.result === "success") {
           console.log("success");
+          socket.emit("vacation deleted")
           setOpenConfirm(false)
         }
         else {
