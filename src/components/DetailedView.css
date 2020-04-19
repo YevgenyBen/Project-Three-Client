@@ -27,6 +27,7 @@
   .upload {
     grid-area: upload;
     place-self: center ;
+
   }
   .from-date {
     grid-area: from-date;

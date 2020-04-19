@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withRouter, Link, useRouteMatch } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -25,10 +25,6 @@ function AdminMenu(props) {
         setOpen(true);
     };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
-
     return (
         <>
             <EditModal edit={false} open={open} handleClose={() => setOpen(false)} />
@@ -37,7 +33,7 @@ function AdminMenu(props) {
                 <Typography component="div" className={"buttonHolder " + classes.root} >
 
                     <Link to="/Admin/Graph" className={"btnA"} >
-                        <AdminButton text="Favorite Destinations" name={"btn"} background="132.jpg" />
+                        <AdminButton text="Favorite Destinations" name={"btn"} background="Graph.jpg" />
                     </Link >
                     <Link to="/Admin/Vacations" className={"btnB"} >
                         <AdminButton text="View Vacations" name={"btn"} background="cities.jpg" />

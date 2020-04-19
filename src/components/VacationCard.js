@@ -39,7 +39,8 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 300,
     minHeight: 500,
     maxHeight: 500,
-    position: "relative"
+    position: "relative",
+    margin: "auto"
 
   },
   media: {
@@ -91,18 +92,18 @@ export default function VacationCard(props) {
     setOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
   //confirmation modal
   const handleConfirmOpen = () => {
     setOpenConfirm(true);
   };
 
-  const handleConfirmClose = () => {
-    setOpenConfirm(false);
-  };
+  // const handleConfirmClose = () => {
+  //   setOpenConfirm(false);
+  // };
   const dispatch = useDispatch();
 
   let userName = useSelector(state => state.currentUserReducer.currentUser)
@@ -165,7 +166,11 @@ export default function VacationCard(props) {
         }
       })
   }
-
+  const date1 = new Date(props.from_date.substring(0, 10));
+  const date2 = new Date(props.to_date.substring(0, 10));
+  const diffTime = Math.abs(date2 - date1);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  console.log("diff days: ", diffDays);
   return (
     <FadeInDiv >
       <FadeOutDownDiv>
@@ -174,6 +179,7 @@ export default function VacationCard(props) {
         <EditModal edit={true} open={open} handleClose={() => setOpen(false)} currentVacation={currentVacation} />
 
         <Card
+
           className={classes.root}
           raised
         >
@@ -195,16 +201,21 @@ export default function VacationCard(props) {
           />
           <CardMedia
             className={classes.media}
-            image={require('../assets/' + props.picture)}
+            // image={require('../assets/' + props.picture)}
+            image={'http://localhost:4001/upload/' + props.picture}
             title="Paella dish"
           />
           <CardContent >
             <Typography variant="body1" color="textPrimary" component="p">
               {props.from_date.substring(0, 10)}&emsp;&emsp;&emsp;-&emsp;&emsp;&emsp;{props.to_date.substring(0, 10)}
             </Typography>
-            <Typography style={{ margin: "20px 0px 40px 0px", overflow: "auto", maxHeight: 135 }} variant="body2" color="textSecondary" component="p">
+            <Typography style={{ textAlign: "center" }} variant="body1" color="textPrimary" component="p">
+              Days: {diffDays}
+            </Typography>
+            <Typography style={{ margin: "20px 0px 40px 0px", overflow: "auto", maxHeight: 100 }} variant="body2" color="textSecondary" component="p">
               {props.description}
             </Typography>
+
           </CardContent>
           <CardActions style={{ bottom: "0", position: "absolute" }} disableSpacing>
             <IconButton

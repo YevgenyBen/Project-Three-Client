@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./DetailedView.css"
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-import DetailedView from "./DetailedView";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 
 
 const useStyles = makeStyles(theme => ({
@@ -16,15 +16,12 @@ const useStyles = makeStyles(theme => ({
     paper: {
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
-        padding: "10px",
+        padding: "30px",
     },
 }));
 
 
 function ConfirmationModal(props) {
-
-    const [open, setOpen] = useState(props.open);
-
 
     const classes = useStyles();
 
@@ -43,6 +40,7 @@ function ConfirmationModal(props) {
         >
             <div className={classes.paper}>
                 <div style={{ textAlign: "center" }}>Delete vacation to {props.currentVacation.destination}?</div>
+                <Divider style={{ marginBottom: "15px" }} />
                 <div>
                     <Button
                         size="small"

@@ -12,9 +12,16 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import { withRouter } from "react-router-dom";
 import { currentUserActions } from "../actions/currectUserActions"
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import { Link } from "react-router-dom";
+
 
 function Header(props) {
   const dispatch = useDispatch()
+  function handleClick(event) {
+    event.preventDefault();
+    console.info('You clicked a breadcrumb.');
+  }
 
   const logOut = () => {
     dispatch(currentUserActions["currentUser"](""));
@@ -34,9 +41,15 @@ function Header(props) {
           direction="row"
           justify="space-between"
           alignItems="flex-end">
+
           <Avatar>
-            <DirectionsBoatIcon />
+            <IconButton onClick={props.history.goBack}>
+              <DirectionsBoatIcon />
+            </IconButton>
           </Avatar>
+
+
+
           <Typography variant="h6">
             Welcome {useSelector(state => state.currentUserReducer.currentUser)}
             <IconButton

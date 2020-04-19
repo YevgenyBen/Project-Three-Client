@@ -47,13 +47,9 @@ function Vacations(props) {
             });
     }
 
-    useEffect(() => {
-        getVacation()
-    }, []);
+    useEffect(getVacation, []);
 
-    useEffect(() => {
-        getVacation()
-    }, [flag])
+    useEffect(getVacation, [flag])
 
     const aFavorite_vacations = vacations.filter((vac) => {
         return favacations.some((favac) => {
@@ -75,6 +71,7 @@ function Vacations(props) {
                     {aFavorite_vacations.map((vacation, index) => {
 
                         return <VacationCard
+
                             description={vacation.description}
                             destination={vacation.destination}
                             price={vacation.price}
@@ -90,6 +87,7 @@ function Vacations(props) {
                     })}
                     {aNotFavorite_vacations.map((vacation, index) => {
                         return <VacationCard
+
                             description={vacation.description}
                             destination={vacation.destination}
                             price={vacation.price}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, BrowserRouter, withRouter } from "react-router-dom";
+import { Switch, BrowserRouter, withRouter } from "react-router-dom";
 import Header from "../components/Header";
 import { useSelector } from "react-redux";
 import AdminMenu from "../components/AdminMenu"
@@ -7,7 +7,6 @@ import GraphHolder from "../components/GraphHolder"
 import Vacations from "../components/Vacations"
 import DetailedView from "../components/DetailedView"
 import ProtectedRoute from "../components/ProtectedRoute"
-import PrivateRoute from "../components/PrivateRoute"
 
 
 function AdminPage(props) {

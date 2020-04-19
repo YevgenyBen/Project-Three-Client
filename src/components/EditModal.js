@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./DetailedView.css"
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -22,9 +22,6 @@ const useStyles = makeStyles(theme => ({
 
 
 function EditModal(props) {
-
-    const [open, setOpen] = useState(props.open);
-
 
     const classes = useStyles();
 

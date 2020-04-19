@@ -15,7 +15,6 @@ import FormControl from '@material-ui/core/FormControl';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 import socketIOClient from "socket.io-client";
 
@@ -62,9 +61,7 @@ function DetailedView(props) {
         setVacation({ ...vacation, [event.target.id]: event.target.value })
     }
 
-    useEffect(() => {
-        setValidForm(validateForm())
-    }, [toDate, fromDate, vacation.destination, vacation.price, vacation.fileName, vacation.description])
+    useEffect(() => setValidForm(validateForm()), [toDate, fromDate, vacation.destination, vacation.price, vacation.fileName, vacation.description])
 
     const handleFileAdd = (event) => {
 
